@@ -1,0 +1,152 @@
+# Each field maps to one key of registry/packages/<id>.json (see README.md).
+# A maintainer turns an approved submission into that file and sets reviewedAt.
+name: Submit a package
+description: List your Polyth package in the catalog at packages.polyth.app.
+title: "Submit: <package name>"
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for publishing a package for Polyth. A maintainer reviews the code at the exact tag or commit you give here; every later version is reviewed again.
+        Before you start, read the [publication rules](https://packages.polyth.app/rules/) and try installing your package in Polyth with **Settings → Packages → Add package** and the link below.
+  - type: input
+    id: id
+    attributes:
+      label: Package id (id)
+      description: 3–40 lowercase letters, digits or dashes, starting and ending with a letter or digit. It becomes the file name and the catalog address (/p/<id>/).
+      placeholder: deploy-board
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name (name)
+      description: Plain text, 2–40 characters.
+      placeholder: Deploy board
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary in English (summary)
+      description: One plain sentence, 20–160 characters, no markup.
+      placeholder: The last five deploys and their status, in a panel beside the chat.
+    validations:
+      required: true
+  - type: input
+    id: summary_uk
+    attributes:
+      label: One-line summary in Ukrainian (summary_uk, optional)
+      description: The same sentence in Ukrainian, 20–160 characters. Leave empty to show the English one.
+  - type: textarea
+    id: description
+    attributes:
+      label: Longer description (description, optional)
+      description: Plain text up to 2000 characters, no HTML.
+  - type: input
+    id: author_name
+    attributes:
+      label: Author name (author.name)
+      description: You or your organisation, as it should appear in the catalog. Up to 60 characters.
+    validations:
+      required: true
+  - type: input
+    id: author_url
+    attributes:
+      label: Author link (author.url, optional)
+      description: An https:// address.
+      placeholder: https://github.com/acme
+  - type: input
+    id: source
+    attributes:
+      label: Source, pinned (source)
+      description: |
+        A full https URL that pins one release: https://github.com/<owner>/<repo>/tree/<tag-or-commit>, https://gitlab.com/<group>/<repo>/-/tree/<tag-or-commit>, or an https://….zip link. The tag must be v<version> or <version>; a commit must be the full 40 characters. Never a branch.
+      placeholder: https://github.com/acme/deploy-board/tree/v1.2.0
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version (version)
+      description: Semver, the version at that tag or commit.
+      placeholder: 1.2.0
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License (license)
+      description: An SPDX identifier or expression, such as MIT or Apache-2.0. The license text must be in the repository.
+      placeholder: MIT
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Shelf (category)
+      options:
+        - agents
+        - workspace
+        - engineering
+        - research
+        - operations
+        - finance
+        - wellbeing
+        - home
+        - system
+    validations:
+      required: true
+  - type: dropdown
+    id: maturity
+    attributes:
+      label: Maturity (maturity, optional)
+      options:
+        - stable
+        - beta
+  - type: input
+    id: icon
+    attributes:
+      label: Icon (icon, optional)
+      description: A Lucide icon name, such as rocket. The catalog shows a package icon when it has no matching one.
+      placeholder: rocket
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage (homepage, optional)
+      description: An https:// address.
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (tags, optional)
+      description: Up to 6, separated by commas, each up to 24 characters.
+      placeholder: ci, deploys
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Declared access (permissions)
+      description: |
+        Every capability the package uses, one plain sentence per line, up to 12: each site it reaches, each account it connects, whether it reads the chat or calls a model. Write "None" if it needs nothing beyond showing its own interface.
+      placeholder: |
+        Reads deploy status from api.github.com
+        Adds a panel beside the chat
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        **reviewedAt** is not part of this form: the maintainer who approves the package sets it to the approval date.
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Before you submit
+      options:
+        - label: I have read and follow the [publication rules](https://packages.polyth.app/rules/).
+          required: true
+        - label: I accept the [terms of use](https://packages.polyth.app/terms/), and I have the right to publish this package under the license above.
+          required: true
+        - label: The access above is complete, and the source is readable (not obfuscated or minified-only).
+          required: true
+        - label: I installed this exact link in Polyth with Settings → Packages → Add package.
+          required: true

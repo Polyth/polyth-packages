@@ -1,0 +1,51 @@
+name: Report a package
+description: Tell the maintainers about a listed package that breaks the rules or behaves differently than it says.
+title: "Report: <package id>"
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for looking out for other people. A maintainer reads every report.
+        **Security hole that should not be public yet?** Write only that here, with the package id and no details, and a maintainer will arrange a private way to share them.
+  - type: input
+    id: package
+    attributes:
+      label: Package id
+      description: The last part of its catalog address, packages.polyth.app/p/<id>/.
+      placeholder: deploy-board
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version shown on its catalog page, if you know it.
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong?
+      options:
+        - It does something it does not declare (network, data, accounts…)
+        - It collects secrets itself instead of through a Polyth connection
+        - Malware, or harmful or illegal content
+        - It impersonates Polyth or another author, or misuses a trademark
+        - Its source changed after review, or no longer installs
+        - License problem
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened
+      description: What you saw, and how to see it again. Links to the exact lines of code help most.
+    validations:
+      required: true
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Before you send
+      options:
+        - label: This report contains no passwords, tokens or other secrets.
+          required: true
